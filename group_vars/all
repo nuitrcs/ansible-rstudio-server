@@ -11,4 +11,4 @@ openmpi_url: https://download.open-mpi.org/release/open-mpi/v1.10/{{ openmpi_fil
 r_version: 3.4.4
 r_file: R-{{ r_version }}.tar.gz
 r_url: https://cran.r-project.org/src/base/R-3/{{ r_file }}
-texlive_url: ftp://tug.org/historic/systems/texlive/2015/install-tl-unx.tar.gz
+texlive_url: http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz

@@ -1,0 +1,20 @@
+#%Module
+
+proc ModulesHelp { } {
+   puts stderr "This module adds TEXLive 2018 to your path"
+}
+
+module-whatis   "Sets up TEXLive 2018 in your environment"
+
+set TLH "/software/texlive"
+
+#prepend-path PATH "/software/texinfo/5.2/bin"
+#prepend-path PATH "$TLH/texinfo-4.13/bin"
+
+prepend-path PATH "$TLH/2018/bin/x86_64-linux"
+
+prepend-path INFOPATH "$TLH/2018/texmf-dist/doc/info"
+#prepend-path INFOPATH "/software/texinfo/5.2/info"
+
+prepend-path MANPATH "$TLH/2018/texmf-dist/doc/man"
+#prepend-path MANPATH "/software/texinfo/5.2/man"

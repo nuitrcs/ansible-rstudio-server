@@ -117,6 +117,17 @@
   args:
     creates: "{{ software_dir }}/texlive/2018"
 
+- name: create texlive module directory
+  file:
+    path: "{{ module_path }}/texlive"
+    state: directory
+    mode: 0755
+
+- name: create texlive module file
+  template:
+    src: texlive.modulefile
+    dest: "{{ module_path }}/texlive/2018"
+
 # R
 - name: download R source code
   get_url:
