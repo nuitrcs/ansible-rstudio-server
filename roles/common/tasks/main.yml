@@ -31,11 +31,24 @@
     src: /tmp/{{ zlib_file }}
     dest: "{{ src_path }}"
     remote_src: yes
+    creates: "{{ src_path }}/zlib-{{ zlib_version }}"
 
 - name: install zlib
   shell: ./configure --prefix={{ software_path }}/zlib/{{ zlib_version }} && make && make install
   args:
     chdir: "{{ src_path }}/zlib-{{ zlib_version }}"
+    creates: libz.so
+
+- name: create zlib module directory
+  file:
+    path: "{{ module_path }}/zlib/{{ zlib_version }}"
+    state: directory
+    mode: 0755
+
+- name: create zlib module file
+  template:
+    src: zlib.modulefile
+    dest: "{{ module_path }}/zlib/{{ zlib_version }}"
 
 # bzip2
 

@@ -1,0 +1,12 @@
+#%Module
+
+proc ModulesHelp { } {
+   puts stderr "This module adds zlib {{ zlib_version }} to your path"
+}
+
+module-whatis   "This module adds zlib {{ zlib_version }} library to your path "
+
+prepend-path LD_LIBRARY_PATH "{{ software_path }}/zlib/{{ zlib_version }}/lib"
+prepend-path PKG_CONFIG_PATH "{{ software_path }}/zlib/{{ zlib_version }}/lib/pkgconfig"
+prepend-path MANPATH "{{ software_path }}/zlib/{{ zlib_version }}/share/man"
+
