@@ -1,0 +1,4 @@
+---
+module_path: /usr/local/Modules/default/modulefiles
+lapack_file: lapack-3.6.0.tgz
+lapack_url: http://www.netlib.org/lapack/lapack-3.6.0.tgz
