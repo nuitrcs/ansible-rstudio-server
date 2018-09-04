@@ -1,0 +1,7 @@
+# RStudio Server R Module Setup
+
+This repository contains an Ansible role to install an R module (with
+dependencies) that can be loaded interactively in the shell or in RStudio
+Server.
+
+Note this playbook assumes the Environment Modules system is already installed.
