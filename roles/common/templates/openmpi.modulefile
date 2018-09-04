@@ -1,0 +1,20 @@
+#%Module
+
+proc ModulesHelp { } {
+   puts stderr "This module adds [ module-info name ] to various paths"
+}
+
+module-whatis   "Sets up [ module-info name ] in your environment"
+
+prepend-path PATH "{{ software_path }}/mpi/openmpi-{{ openmpi_version }}/bin"
+prepend-path LD_LIBRARY_PATH "{{ software_path }}/mpi/openmpi-{{ openmpi_version }}/lib64"
+prepend-path MANPATH "{{ software_path }}/mpi/openmpi-{{ openmpi_version }}/share/man"
+prepend-path PKG_CONFIG_PATH "{{ software_path }}/mpi/openmpi-{{ openmpi_version }}/lib64/pkgconfig"
+
+if [ module-info mode remove ] {
+        remove-path MANPATH "{{ software_path }}/mpi/openmpi-{{ openmpi_version }}/share/man"
+        remove-path PATH "{{ software_path }}/mpi/openmpi-{{ openmpi_version }}/bin"
+        remove-path LD_LIBRARY_PATH "{{ software_path }}/mpi/openmpi-{{ openmpi_version }}/lib64"
+        remove-path PKG_CONFIG_PATH "{{ software_path }}/mpi/openmpi-{{ openmpi_version }}/pkgconfig"
+}
+

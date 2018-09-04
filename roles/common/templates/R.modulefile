@@ -1,0 +1,16 @@
+#%Module
+
+proc ModulesHelp { } {
+   puts stderr "This module adds R-{{ r_version }}" 
+}
+
+module-whatis   "This module adds R-{{ r_version }}"
+
+module load mpi/openmpi-{{ openmpi_version }}
+module load texlive/2015
+
+prepend-path PATH "{{ software_path }}/R/{{ r_version }}/bin"
+prepend-path INFOPATH "{{ software_path }}/R/{{ r_version }}/info"
+prepend-path PKG_CONFIG_PATH "{{ software_path }}/R/{{ r_version }}/lib64/pkgconfig"
+prepend-path PATH "/software/supplemental/libiconv/1.14/bin"
+prepend-path LD_LIBRARY_PATH "/software/supplemental/libiconv/1.14/lib"

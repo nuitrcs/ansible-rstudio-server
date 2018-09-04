@@ -5,3 +5,9 @@ software_path: /software
 zlib_version: 1.2.11
 zlib_file: zlib-{{ zlib_version }}.tar.gz
 zlib_url: https://zlib.net/{{ zlib_file }}
+openmpi_version: 1.10.7
+openmpi_file: openmpi-{{ openmpi_version }}.tar.gz
+openmpi_url: https://download.open-mpi.org/release/open-mpi/v1.10/{{ openmpi_file }}
+r_version: 3.4.4
+r_file: R-{{ r_version }}.tar.gz
+r_url: https://cran.r-project.org/src/base/R-3/{{ r_file }}

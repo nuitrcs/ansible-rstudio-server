@@ -16,6 +16,11 @@
     - bzip2-devel
     - pcre-devel
     - libcurl-devel
+    - readline-devel
+    - ncurses-devel
+    - libXt-devel
+    - lzma
+    - xz-devel
 
 - name: create /software
   file:
@@ -53,4 +58,62 @@
     src: zlib.modulefile
     dest: "{{ module_path }}/zlib/{{ zlib_version }}"
 
+# openmpi
+- name: download openmpi
+  get_url:
+    url: "{{ openmpi_url }}"
+    dest: /tmp/{{ openmpi_file }}
+
+- name: unarchive openmpi
+  unarchive:
+    src: /tmp/{{ openmpi_file }}
+    dest: "{{ src_path }}"
+    remote_src: yes
+    creates: "{{ src_path }}/openmpi-{{ openmpi_version }}"
+
+- name: install openmpi
+  shell: ./configure --prefix={{ software_path }}/mpi/openmpi-{{ openmpi_version }} && make && make install
+  args:
+    chdir: "{{ src_path }}/openmpi-{{ openmpi_version }}"
+    creates: 
+
+- name: create openmpi module directory
+  file:
+    path: "{{ module_path }}/mpi"
+    state: directory
+    mode: 0755
+
+- name: create openmpi module file
+  template:
+    src: openmpi.modulefile
+    dest: "{{ module_path }}/mpi/openmpi-{{ openmpi_version }}"
+
 # R
+- name: download R source code
+  get_url:
+    url: "{{ r_url }}"
+    dest: /tmp/{{ r_file }}
+
+- name: unarchive R source code
+  unarchive:
+    src: /tmp/{{ r_file }}
+    dest: "{{ src_path }}"
+    remote_src: yes
+    creates: "{{ src_path }}/R-{{ r_version }}"
+
+- name: install R
+  shell: ./configure --prefix={{ software_path }}/R/{{ r_version }} --enable-R-shlib --disable-openmp --disable-java --with-x=yes --with-tcltk --with-tcl-config=/usr/lib64/tclConfig.sh --with-tk-config=/usr/lib64/tkConfig.sh --with-blas --with-lapack && make && make install
+  args:
+    chdir: "{{ src_path }}/R-{{ r_version }}"
+    creates: lib/libR.so
+
+- name: create R module directory
+  file:
+    path: "{{ module_path }}/R"
+    state: directory
+    mode: 0755
+
+- name: create R module file
+  template:
+    src: R.modulefile
+    dest: "{{ module_path }}/R/{{ r_version }}"
