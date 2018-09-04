@@ -1,5 +1,5 @@
 ---
-- name: install tcl, tk, blas, lapack
+- name: install dependencies and libraries
   yum:
     name: "{{ item }}"
     state: installed
@@ -13,6 +13,9 @@
     - tcl-devel
     - tk
     - tk-devel
+    - bzip2-devel
+    - pcre-devel
+    - libcurl-devel
 
 - name: create /software
   file:
@@ -20,7 +23,7 @@
     state: directory
     mode: 0755
 
-# zlib 1.2.8
+# zlib module
 - name: download zlib
   get_url:
     url: "{{ zlib_url }}"
@@ -49,11 +52,5 @@
   template:
     src: zlib.modulefile
     dest: "{{ module_path }}/zlib/{{ zlib_version }}"
-
-# bzip2
-
-# pcre
-
-# curl
 
 # R
