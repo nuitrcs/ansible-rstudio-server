@@ -21,6 +21,7 @@
     - libXt-devel
     - lzma
     - xz-devel
+    - perl-Digest-MD5
 
 - name: create /software
   file:
@@ -87,6 +88,34 @@
   template:
     src: openmpi.modulefile
     dest: "{{ module_path }}/mpi/openmpi-{{ openmpi_version }}"
+
+# texlive
+- name: download texlive installer
+  get_url:
+    url: "{{ texlive_url }}"
+    dest: /tmp/install-tl-unx.tar.gz
+
+- name: unarchive texlive installer
+  unarchive:
+    src: /tmp/install-tl-unx.tar.gz
+    dest: /tmp
+    remote_src: yes
+
+- name: create texlive software directory
+  file:
+    path: "{{ software_path }}/texlive"
+    state: directory
+    mode: 0755
+
+- name: copy texlive install profile
+  copy:
+    src: texlive.profile
+    dest: /tmp
+
+- name: run texlive installer (will take a *long* time)
+  shell: /tmp/install-tl-*/install-tl -profile /tmp/texlive.profile
+  args:
+    creates: "{{ software_dir }}/texlive/2018"
 
 # R
 - name: download R source code
