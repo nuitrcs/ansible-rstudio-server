@@ -75,7 +75,7 @@
   shell: ./configure --prefix={{ software_path }}/mpi/openmpi-{{ openmpi_version }} && make && make install
   args:
     chdir: "{{ src_path }}/openmpi-{{ openmpi_version }}"
-    creates: 
+    creates: ompi/.libs/libmpi.so
 
 - name: create openmpi module directory
   file:
