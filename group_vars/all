@@ -1,4 +1,7 @@
 ---
 module_path: /usr/local/Modules/default/modulefiles
-lapack_file: lapack-3.6.0.tgz
-lapack_url: http://www.netlib.org/lapack/lapack-3.6.0.tgz
+src_path: /usr/local/src
+software_path: /software
+zlib_version: 1.2.11
+zlib_file: zlib-{{ zlib_version }}.tar.gz
+zlib_url: https://zlib.net/{{ zlib_file }}

@@ -1,3 +1,46 @@
 ---
-- name: download lapack
-  get_url: url={{ lapack_url }} dest=/usr/local/src/{{ lapack_file }}
+- name: install tcl, tk, blas, lapack
+  yum:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - blas
+    - blas-devel
+    - lapack
+    - lapack-devel
+    - tcl
+    - tcllib
+    - tcl-devel
+    - tk
+    - tk-devel
+
+- name: create /software
+  file:
+    path: "{{ software_path }}"
+    state: directory
+    mode: 0755
+
+# zlib 1.2.8
+- name: download zlib
+  get_url:
+    url: "{{ zlib_url }}"
+    dest: /tmp/{{ zlib_file }}
+
+- name: unarchive zlib
+  unarchive:
+    src: /tmp/{{ zlib_file }}
+    dest: "{{ src_path }}"
+    remote_src: yes
+
+- name: install zlib
+  shell: ./configure --prefix={{ software_path }}/zlib/{{ zlib_version }} && make && make install
+  args:
+    chdir: "{{ src_path }}/zlib-{{ zlib_version }}"
+
+# bzip2
+
+# pcre
+
+# curl
+
+# R
