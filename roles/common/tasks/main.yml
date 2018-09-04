@@ -41,7 +41,7 @@
 
 - name: create zlib module directory
   file:
-    path: "{{ module_path }}/zlib/{{ zlib_version }}"
+    path: "{{ module_path }}/zlib"
     state: directory
     mode: 0755
 
