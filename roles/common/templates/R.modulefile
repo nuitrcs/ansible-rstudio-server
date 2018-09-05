@@ -7,7 +7,7 @@ proc ModulesHelp { } {
 module-whatis   "This module adds R-{{ r_version }}"
 
 module load mpi/openmpi-{{ openmpi_version }}
-module load texlive/2015
+module load texlive/2018
 
 prepend-path PATH "{{ software_path }}/R/{{ r_version }}/bin"
 prepend-path INFOPATH "{{ software_path }}/R/{{ r_version }}/info"
