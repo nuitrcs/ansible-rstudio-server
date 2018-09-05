@@ -90,43 +90,77 @@
     dest: "{{ module_path }}/mpi/openmpi-{{ openmpi_version }}"
 
 # texlive
-- name: download texlive installer
-  get_url:
-    url: "{{ texlive_url }}"
-    dest: /tmp/install-tl-unx.tar.gz
+- name: check for texlive installation
+  shell: "[ -d {{ software_path }}/texlive/2018 ]"
+  register: texlive_installed
 
-- name: unarchive texlive installer
-  unarchive:
-    src: /tmp/install-tl-unx.tar.gz
-    dest: /tmp
-    remote_src: yes
+- name: download texlive installer iso
+  get_url:
+    url: "{{ texlive_iso_url }}"
+    dest: /tmp/texlive.iso
+  when: texlive_installed.rc == 1
+
+- name: create texlive mount directory
+  file:
+    path: /mnt/dvd
+    state: directory
+    mode: 0755
+  when: texlive_installed.rc == 1
+
+- name: mount texlive installer
+  mount:
+    path: /mnt/dvd
+    src: /tmp/texlive.iso
+    fstype: iso9660
+    opts: ro,noauto
+    state: mounted
+  when: texlive_installed.rc == 1
 
 - name: create texlive software directory
   file:
     path: "{{ software_path }}/texlive"
     state: directory
     mode: 0755
+  when: texlive_installed.rc == 1
 
 - name: copy texlive install profile
   copy:
     src: texlive.profile
     dest: /tmp
+  when: texlive_installed.rc == 1
 
-- name: run texlive installer (will take a *long* time)
-  shell: /tmp/install-tl-*/install-tl -profile /tmp/texlive.profile
+- name: run texlive installer (will take a long time)
+  shell: /mnt/dvd/install-tl -profile /tmp/texlive.profile
   args:
-    creates: "{{ software_dir }}/texlive/2018"
+    creates: "{{ software_path }}/texlive/2018"
+  when: texlive_installed.rc == 1
 
 - name: create texlive module directory
   file:
     path: "{{ module_path }}/texlive"
     state: directory
     mode: 0755
+  when: texlive_installed.rc == 1
 
 - name: create texlive module file
   template:
     src: texlive.modulefile
     dest: "{{ module_path }}/texlive/2018"
+  when: texlive_installed.rc == 1
+
+- name: unmount dvd
+  mount:
+    path: /mnt/dvd
+    src: /tmp/texlive.iso
+    fstype: iso9660
+    state: absent
+  when: texlive_installed.rc == 1
+
+- name: delete texlive iso
+  file:
+    path: /tmp/texlive.iso
+    state: absent
+  when: texlive_installed.rc == 1
 
 # R
 - name: download R source code
