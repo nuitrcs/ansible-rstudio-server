@@ -22,6 +22,10 @@
     - lzma
     - xz-devel
     - perl-Digest-MD5
+    - libpng-devel
+    - openssl-devel
+    - libxml2-devel
+    - libpng-devel
 
 - name: create /software
   file:
