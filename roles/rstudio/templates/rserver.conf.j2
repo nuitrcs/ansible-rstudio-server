@@ -1,0 +1,4 @@
+# Server Configuration File
+rsession-which-r = {{ software_path }}/R/{{ r_version }}/bin/R
+rsession-ld-library-path = {{ software_path }}/mpi/openmpi-{{ openmpi_version }}/lib:{{ software_path }}/R/{{ r_version }}/lib64/R/lib:/lib:/usr/local/lib64
+auth-minimum-user-id = 500

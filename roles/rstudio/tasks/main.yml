@@ -1,0 +1,14 @@
+---
+- name: install rstudio package
+  yum:
+    name: "{{ rstudio_server_rpm_url }}"
+    state: installed
+  notify:
+  - restart rstudio
+
+- name: update rserver.conf
+  template:
+    src: rserver.conf.j2
+    dest: /etc/rstudio/rserver.conf
+  notify:
+  - restart rstudio

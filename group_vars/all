@@ -12,3 +12,4 @@ r_version: 3.4.4
 r_file: R-{{ r_version }}.tar.gz
 r_url: https://cran.r-project.org/src/base/R-3/{{ r_file }}
 texlive_iso_url: http://mirror.ctan.org/systems/texlive/Images/texlive2018.iso
+rstudio_server_rpm_url: https://download2.rstudio.org/rstudio-server-rhel-1.1.456-x86_64.rpm
